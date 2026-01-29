@@ -17,14 +17,33 @@ function drawDirection() {
     return direction[index];
 }
 
+async function requestWakeLock() {
+    try {
+        const wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Wake Lock is active');
+
+        // Re-acquire the wake lock if it is released (e.g., due to visibility change)
+        document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible') {
+                await navigator.wakeLock.request('screen');
+            }
+        });
+    } catch (err) {
+        console.error('Failed to acquire wake lock:', err);
+    }
+}
+
 function init() {
     console.log(drawColor());
     console.log(drawBodyPart());
     console.log(drawDirection());
 
-    document.body.style.backgroundColor = drawColor();
-    document.getElementById('direction').innerText = drawDirection();
-    document.getElementById('body-part-img').src = drawBodyPart() + '.png';
+    setInterval(function() {
+        document.body.style.backgroundColor = drawColor();
+        document.getElementById('direction').innerText = drawDirection();
+        document.getElementById('body-part-img').src = drawBodyPart() + '.png';
+    }, 5000);
 }
 
 init();
+requestWakeLock();
