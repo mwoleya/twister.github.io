@@ -1,0 +1,22 @@
+.content {
+    display: flex;
+    flex-direction: row;
+
+    div {
+        width: 50%;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    #direction {
+        font-family: Calibri;
+        text-align: center;
+        font-size: calc(1vw + 1vh + 100px);
+        font-weight: bold;
+        margin-top: 20px;
+        color: white;
+        text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
+    }
+}
